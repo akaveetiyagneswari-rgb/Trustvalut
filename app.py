@@ -24,8 +24,10 @@ app.secret_key = os.environ.get("SECRET_KEY", "trustvalut-local-dev-key")
 csrf = CSRFProtect(app)
 app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024
 
-DB = "trustvalut.db"
-UPLOAD_FOLDER = "uploads"
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+DB = os.path.join(BASE_DIR, "trustvalut.db")
+UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
 
 ALLOWED_EXTENSIONS = {
     "pdf", "doc", "docx", "txt", "png", "jpg", "jpeg"
@@ -79,6 +81,11 @@ def initialize_db():
 
     conn.commit()
     conn.close()
+    # Initialize database when application starts
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+initialize_db()
+
+print("Trustvalut database initialized:", DB)
 
 
 # -------------------------------
@@ -401,11 +408,9 @@ def file_too_large(error):
 # MUST BE AT THE VERY BOTTOM
 # -------------------------------
 
+os.makedirs("uploads", exist_ok=True)
+initialize_db()
+
 if __name__ == "__main__":
-
-    initialize_db()
-
-    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-
-    app.run(debug=True)
+    app.run(debug=False)
 
