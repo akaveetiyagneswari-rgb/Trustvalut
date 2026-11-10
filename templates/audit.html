@@ -1,0 +1,13 @@
+
+<h1>Trustvalut Audit History</h1>
+
+{% for log in logs %}
+<div>
+    <p>User: {{ log.username }}</p>
+    <p>Action: {{ log.action }}</p>
+    <p>Details: {{ log.details }}</p>
+    <p>Date: {{ log.created_at }}</p>
+</div>
+{% endfor %}
+
+<a href="/">Dashboard</a>

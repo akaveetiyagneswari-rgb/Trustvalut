@@ -1,0 +1,20 @@
+
+
+<h1>Welcome to Trustvalut!</h1>
+<h3>Secure Document Management System</h3>
+
+<p>Hello, {{ session.username }}</p>
+<p>Your role: {{ session.role }}</p>
+
+<a href="/upload">Upload Document</a>
+<br><br>
+
+<a href="/documents">My Documents</a>
+<br><br>
+
+{% if session.role == "admin" %}
+<a href="/audit">View Audit History</a>
+{% endif %}
+
+<br><br>
+<a href="/logout">Logout</a>

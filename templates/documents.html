@@ -1,0 +1,13 @@
+
+<h1>My Documents</h1>
+
+{% for doc in documents %}
+<div>
+    <p>{{ doc.filename }}</p>
+    <a href="/download/{{ doc.id }}">Download</a>
+</div>
+{% else %}
+<p>No documents uploaded yet.</p>
+{% endfor %}
+
+<a href="/">Dashboard</a>
